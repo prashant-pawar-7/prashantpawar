@@ -5,21 +5,20 @@ import java.io.File;
 public class GetFiles {
 
 	public static void main(String[] args) {
-		File f =new File("D:\\IOStream");
-		String[] string=f.list();
-		System.out.println("List of files present in IOStream folder");
-		for (String string2 : string) {
-			System.out.println(string2);
+		File file=new File("D:\\IOStream");
+		String[] s=file.list();
+		System.out.println("File names present in the folder");
+		for (String string : s) {
+			System.out.println(string);
 		}
-		System.out.println();
-		File[] iFile=f.listFiles();
-		for (File file : iFile) {
-			String s=file.getName();
-			System.out.println("File Name : "+s);
-			System.out.println("Length of file : "+file.length());
-			System.out.println("Writable : "+file.canWrite());
-			System.out.println("Readable : "+file.canRead());
-			System.out.println("Executable : "+file.canExecute()+"\n");
+		System.out.println("\nPermission check:");
+		File[] f =file.listFiles();
+		for (File file2 : f) {
+			
+			System.out.println("File Name : "+file2.getName());
+			System.out.println("Writable : "+file2.canWrite());
+			System.out.println("Readable : "+file2.canRead());
+			System.out.println("Executable : "+file2.canExecute()+"\n");
 		}
 	}
 
