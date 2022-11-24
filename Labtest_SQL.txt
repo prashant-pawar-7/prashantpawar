@@ -1,0 +1,133 @@
+1. Create table
+
+1.1
+create table jobs(job_id varchar(15) not null primary key,job_title varchar(40),
+min_salary double,max_salary double,constraint check_max_salary check (max_salary>8000));
+
+desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Defaul | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | varchar(15) | NO   | PRI | NULL  |          |
+| job_title  | varchar(40) | YES  |     | NULL    |          |
+| min_salary |   double    | YES  |     | NULL   |          |
+| max_salary |   double    | YES |     | NULL   |          |
++------------+--------------+------+-----+---------+-------+
+
+1.2
+ create table countries(country_id int primary key,country_name enum('India','Italy','China'),region_id int);
+
+ desc countries;
++--------------+-------------------------------+------+-----+---------+-------+
+| Field           | Type                                 | Null  Key | Default | Extra |
++--------------+-------------------------------+------+-----+---------+-------+
+| country_id  | int                                    | NO   | PRI | NULL  |           |
+| country_name |enum('India' 'Italy','China') |YES |    | NULL  |           |
+| region_id    | int                                    | YES  |       | NULL  |           |
++--------------+-------------------------------+------+-----+---------+-------+
+
+1.3
+ create table job_history(employee_id int primary key unique,start_date date,end_date date, job_id varchar(15),department_id int);
+
+ desc job_history;
++---------------+-------------+------+-----+---------+-------+
+|     Field        |    Type       | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id |  int           | NO   | PRI | NULL    |       |
+| start_date     |  date         | YES  |        | NULL    |       |
+| end_date      |  date        | YES  |         | NULL    |       |
+| job_id          | varchar(15) | YES  |      | NULL    |       |
+| department_id | int         | YES  |        | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+
+2.Alter table
+
+2.1
+ alter table job_history add constraint fk_job_id foreign key(job_id) references jobs(job_id);
+
+ show create table job_history;
+ job_history | CREATE TABLE `job_history` (
+  `employee_id` int NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `job_id` varchar(15) DEFAULT NULL,
+  `department_id` int DEFAULT NULL,
+  PRIMARY KEY (`employee_id`),
+  UNIQUE KEY `employee_id` (`employee_id`),
+  KEY `fk_job_id` (`job_id`),
+  CONSTRAINT `fk_job_id` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
+
+2.2
+alter table countries rename to country_new;
+
+ show tables;
++--------------------+
+ |Tables_in_avcoe |
++--------------------+
+| books                 |
+| country_new      |
+| department         |
+| employee           |
+| job_history        |
+| jobs                   |
+| student              |
++-------------------+
+
+2.3
+ alter table country_new rename column country_id to con_id;
+
+ desc country_new;
++--------------+-------------------------------+------+-----+---------+--------+
+|  Field          | Type                                 | Null | Key | Default | Extra |
++--------------+-------------------------------+------+-----+---------+--------+
+| con_id       | int                                      | NO   | PRI | NULL  |          |
+| country_name | enum('India','Italy','China')| YES |     | NULL |          |
+| region_id    | int                                     | YES  |       | NULL    |          |
++--------------+-------------------------------+------+-----+---------+-------+
+
+3.DML Statement
+
+3.1
+ insert into country_new values(1,'India',3),(3,'china',3),(2,'Italy',1);
+
+select * from country_new;
++--------+------------------+------------+
+| con_id | country_name | region_id |
++--------+------------------+------------+
+|      1     | India               |              3 |
+|      2     | Italy                |              1 |
+|      3     | China              |              3 |
++--------+------------------+------------+
+
+3.2
+insert into jobs values('AD_PRES','President ',20000,40000),
+('FI_MGR','Finance Manager',8200,16000),
+('SA_REP','Sales Representative',6000,12000),
+('IT_PROG','Programmer ',4000,10000),
+('HR_REP','Human Resources Representative ',4000,9000);
+
+select * from jobs;
++---------+---------------------------------+------------+------------+
+| job_id  | job_title                              | min_salary | max_salary |
++---------+---------------------------------+------------+------------+
+| AD_PRES | President                       |      20000 |      40000 |
+| FI_MGR  | Finance Manager                 |       8200 |      16000 |
+| HR_REP  | Human Resources Representative  |       4000 |       9000 |
+| IT_PROG | Programmer                      |       4000 |      10000 |
+| SA_REP  | Sales Representative            |       6000 |      12000 |
++---------+---------------------------------+------------+------------+
+
+3.3
+update jobs set min_salary=8000,max_salary=40000 where job_title='Programmer ';
+
+ select * from jobs;
++---------+---------------------------------+------------+----------------+
+| job_id  | job_title                              | min_salary | max_salary |
++---------+---------------------------------+------------+---------------+
+| AD_PRES | President                       |      20000 |          40000 |
+| FI_MGR  | Finance Manager            |       8200  |          16000 |
+| HR_REP  | Human Resources Representative  |  4000 |  9000 |
+| IT_PROG | Programmer                      |       8000 |        40000 |
+| SA_REP  | Sales Representative            |       6000 |     12000 |
++---------+---------------------------------+------------+--------------+
