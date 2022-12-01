@@ -55,10 +55,10 @@ public class userDaoimpl implements userDao{
 	}
 
 	public int updatePassword(String password, String uname) throws SQLException {
-		String query="update user set uname=? where password=?";
+		String query="update user set password=? where uname=?";
 		PreparedStatement stmt=con.prepareStatement(query);
-		stmt.setString(2, password);
-		stmt.setString(1, uname);
+		stmt.setString(1, password);
+		stmt.setString(2, uname);
 		int i=stmt.executeUpdate();
 		return i;
 	}
