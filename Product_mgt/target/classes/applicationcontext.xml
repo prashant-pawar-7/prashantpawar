@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<tx:annotation-driven />
+	<context:annotation-config/>
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/avcoe" />
+		<property name="username" value="root" />
+		<property name="password" value="D@rsh@n@@12345" />
+	</bean>
+	<bean id="template" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory1" />
+	</bean>
+	<bean id="sessionFactory1" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>
+					com.product.entities.Product
+				</value>
+				<value>
+					com.product.entities.Customer
+				</value>
+
+			</list>
+
+		</property>
+
+	</bean>
+	<bean id="CustomerDao" class="com.product.daoimpl.CustomerDaoImpl">
+		<property name="ht" ref="template"></property>
+	</bean>
+	<bean id="ProductDao" class="com.product.daoimpl.ProductDaoImpl">
+		<property name="ht" ref="template"></property>
+	</bean>
+
+	<bean id="Product1" class="com.product.entities.Product">
+		<property name="pid" value="1"></property>
+		<property name="pname" value="Shampoo"></property>
+		<property name="pprice" value="250"></property>
+	</bean>
+	<bean id="Product2" class="com.product.entities.Product">
+		<property name="pid" value="2"></property>
+		<property name="pname" value="Parivar oil"></property>
+		<property name="pprice" value="2500"></property>
+	</bean>
+	<bean id="Product3" class="com.product.entities.Product">
+		<property name="pid" value="3"></property>
+		<property name="pname" value="Sugar"></property>
+		<property name="pprice" value="2250"></property>
+	</bean>
+	<bean id="Product4" class="com.product.entities.Product">
+		<property name="pid" value="4"></property>
+		<property name="pname" value="Salt"></property>
+		<property name="pprice" value="20"></property>
+	</bean>
+
+	<bean id="Customer1" class="com.product.entities.Customer">
+		<property name="cid" value="101"></property>
+		<property name="cname" value="Gaurav"></property>
+		<property name="pList">
+		<list>
+				<ref bean="Product3"/>
+				<ref bean="Product4"/>
+
+			</list>
+        </property>
+	</bean>
+	<bean id="Customer2" class="com.product.entities.Customer" >
+		<property name="cid" value="102"></property>
+		<property name="cname" value="Sagar"></property>
+		<property name="pList">
+		<list>
+				<ref bean="Product3"/>
+				<ref bean="Product4"/>
+
+			</list>
+        </property>
+	</bean>
+
+	<bean name="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory1" />
+	</bean>
+</beans>
