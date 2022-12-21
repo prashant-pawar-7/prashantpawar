@@ -1,6 +1,7 @@
 
 
 public class Alternate {
+	//to add array
      public int[] printAddArray(int[] m,int[] n) {
     	int[] result=new int[m.length+n.length];
     	int i=0,k=0,j=0;
