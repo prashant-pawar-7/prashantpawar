@@ -1,0 +1,53 @@
+
+
+<div class="container allstudents-container">
+    <a mat-raised-button color="accent" routerLink="/add-course">
+      Add Course
+    </a>
+      <table mat-table [dataSource]="course" class="mat-elevation-z8">
+        <ng-container matColumnDef="cid">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+         <td mat-cell *matCellDef="let c">{{ c.cid }}</td> 
+         </ng-container>
+     
+        <ng-container matColumnDef="cname">
+          <th mat-header-cell *matHeaderCellDef>Course Name</th>
+          <td mat-cell *matCellDef="let c">{{ c.cname}}</td>
+        </ng-container>
+     
+        <ng-container matColumnDef="cduration">
+          <th mat-header-cell *matHeaderCellDef>Course Duration</th>
+          <td mat-cell *matCellDef="let c">{{ c.cduration}}</td>
+        </ng-container>
+        <ng-container matColumnDef="cfees">
+            <th mat-header-cell *matHeaderCellDef>Course fees</th>
+            <td mat-cell *matCellDef="let c">{{ c.cfees}}</td>
+          </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Edit/Delete</th>
+            <td mat-cell *matCellDef="let c">
+            <a [routerLink]="['/update-course', c.cid]"
+              ><mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="edit"
+              >
+              </mat-icon
+            ></a>
+            <mat-icon
+            (click)="openDeleteModal(c.cid)"
+            aria-hidden="false"
+            aria-label="Example delete icon"
+            fontIcon="delete"
+          >
+          </mat-icon>
+            </td>
+          </ng-container> 
+        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+      </table>
+    </div>
+    <div>
+       <router-outlet></router-outlet>
+    </div>
+    

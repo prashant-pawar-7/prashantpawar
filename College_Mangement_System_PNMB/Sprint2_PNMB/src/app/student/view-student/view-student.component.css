@@ -1,0 +1,14 @@
+table {
+    width: 80%;
+    color: black;
+   
+  }
+   
+  .allstudents-container {
+    padding: 20px;
+  }
+  .search{
+   margin-left: 20px;
+   line-height: 5px;
+  
+  }

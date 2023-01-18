@@ -1,0 +1,78 @@
+
+
+<div class="container allstudents-container">
+    <a mat-raised-button color="accent" routerLink="/add-student">
+      Add Student
+    </a>
+    <mat-form-field class="search" appearance="fill">
+      <mat-label>Search by Course</mat-label>
+      <input matInput [(ngModel)]="searchterm">
+      <mat-icon (click)="filterCourses(searchterm)" matSuffix >search</mat-icon>
+    </mat-form-field>
+      <table mat-table [dataSource]="ss" class="mat-elevation-z8">
+        <ng-container matColumnDef="sid">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+         <td mat-cell *matCellDef="let s">{{ s.sid }}</td> 
+         </ng-container>
+     
+        <ng-container matColumnDef="sname">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef="let s">{{ s.sname }}</td>
+        </ng-container>
+     
+        <ng-container matColumnDef="sage">
+          <th mat-header-cell *matHeaderCellDef>Age</th>
+          <td mat-cell *matCellDef="let s">{{ s.sage}}</td>
+        </ng-container>
+        <ng-container matColumnDef="scontact">
+            <th mat-header-cell *matHeaderCellDef>Contact</th>
+            <td mat-cell *matCellDef="let s">{{ s.scontact}}</td>
+          </ng-container>
+            
+          <!-- <ng-container matColumnDef="scourse">
+            <th mat-header-cell *matHeaderCellDef>Course</th>
+            <td mat-cell *matCellDef="let s">{{ s.scourse.cid}}</td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="scourse.cname">
+            <th mat-header-cell *matHeaderCellDef>Course Name</th>
+            <td mat-cell *matCellDef="let s">{{s.scourse.cname}}</td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="scourse.cduration">
+            <th mat-header-cell *matHeaderCellDef>Course Duration</th>
+            <td mat-cell *matCellDef="let s">{{s.scourse.cduration}}</td>
+          </ng-container>
+          <ng-container matColumnDef="scourse.cfees">
+            <th mat-header-cell *matHeaderCellDef>Course fees</th>
+            <td mat-cell *matCellDef="let s">{{s.scourse.cfees}}</td>
+          </ng-container> -->
+              
+              
+          
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Edit/Delete</th>
+              <td mat-cell *matCellDef="let s">
+              <a [routerLink]="['/update-student', s.sid]"
+                ><mat-icon
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="edit"
+                >
+                </mat-icon
+              ></a>
+              <mat-icon
+              (click)="openDeleteModal(s.sid)"
+              aria-hidden="false"
+              aria-label="Example delete icon"
+              fontIcon="delete"
+            >
+            </mat-icon>
+              </td>
+            </ng-container>
+     
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    

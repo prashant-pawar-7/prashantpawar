@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <span>AVCOE</span>
+  <mat-icon id="home" style="margin-left: 0.5cm;" aria-hidden="false" aria-label="Example home icon"  fontIcon="home" [routerLink]="'/students'"></mat-icon>
+  <span class="example-spacer">
+    <button style="margin-left: 0.5cm;" mat-button [matMenuTriggerFor]="Student">Student</button>
+  <mat-menu #Student="matMenu">
+    <button mat-menu-item [routerLink]="'/add-student'">Add Student
+      <!-- <a mat-menu-item ></a> -->
+    </button>
+    <button  mat-menu-item [routerLink]="'/students'">View Student
+    </button>
+    <button mat-menu-item [routerLink]="'/students'">Update Student
+      <!-- <span>Update Student</span> -->
+    </button>
+  </mat-menu>
+  <button style="margin-left: 0.5cm;" mat-button [matMenuTriggerFor]="Course">Course</button>
+  <mat-menu #Course="matMenu">
+    <button mat-menu-item [routerLink]="'/add-course'">Add Course
+      <!-- <a mat-menu-item ></a> -->
+    </button>
+    <button  mat-menu-item [routerLink]="'/courses'">View Course
+    </button>
+    <button mat-menu-item [routerLink]="'/update-course'">Update Course
+      <!-- <span>Update Student</span> -->
+    </button>
+  </mat-menu>
+  </span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    
+    <button mat-menu-item [routerLink]="'/students'">
+      <span>Home</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="Student">
+      <span >Student</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="Course">
+      <span>Course</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+ <!-- <img id="ig" src="../../assets/images/1670081865265.jpg" alt="click here"> -->
+<router-outlet></router-outlet>

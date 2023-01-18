@@ -1,0 +1,17 @@
+/* .add{
+    width: 500px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+    flex-direction: column;
+} */
+.form-element{
+    width: 500px;
+  }
+  .add-student-container{
+    padding: 20px;
+  } 
+  h3{
+    background-color: black;
+    color: white;
+  }
